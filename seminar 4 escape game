@@ -1,0 +1,50 @@
+#Level 1: System Initialization
+print ("Welcome to our game Space Escape!")
+name = input ("Please enter your name :")
+age = int(input("Please enter your age:"))
+if age >= 18:
+    print ("Welcome a board Captain", name)
+else:
+    print ("Welcome a board Space Cadet", name)
+    
+print ("The door to the escape pod is locked with a numeric code. You have 3 guesses to find the right one. Good luck people !")
+
+#Level 2: The Keypad Lock
+secret = 13
+guessed = set()
+lives = 3
+while lives > 0 :
+    guess = int(input("Please enter the code:"))
+    
+    if guess == secret:
+        print ("You're guess is correct! Please proceed ahead ", name)
+        break
+    elif guess > 13:
+        print ("Your guess is too high! Please try a smaller number.")
+        lives -= 1
+    else:
+        print ("Your guess is too low! Please try a bigger number.")
+        lives -= 1
+if lives == 0:
+    print ("Your luck run out! Game over!")
+    
+
+#Level 3: The Corrupted Voice Protocol
+print ("This lock requires a voice password. ")
+password = input("Enter pasaword:")
+guess = 0
+for letter in password:
+    if letter in "aeiouAEIOU":
+        guess = guess + 1
+print ("Number of vowels in the passward you used are ,", guess)
+
+#Level 4: The Final Countdown
+print ("The pod is ready! Stand by for the countdown anf you will escape!")
+countdown = 5
+while countdown > 0:
+    print (countdown)
+    countdown = countdown - 1
+print ("BLAST OFF! You escaped!")
+
+    
+
