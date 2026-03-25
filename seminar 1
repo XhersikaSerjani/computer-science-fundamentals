@@ -1,0 +1,10 @@
+#Xhersika Serjani BSE2
+#Xhorxha Lala BSE2
+#15 minutes
+import math
+x = float (input ("Please enter the number X"))
+y = float (input ("Please enter the number Y"))
+power_result = x**y
+log_result = math.log2(x)
+print ("X rasied to the power Y is:", power_result)
+print ("Base-2 logarithm of x is:",log_result)
