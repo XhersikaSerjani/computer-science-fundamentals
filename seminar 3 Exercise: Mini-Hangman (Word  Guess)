@@ -1,0 +1,55 @@
+secret = "python"
+revealed = ["_"] * len(secret)
+guessed = set()
+lives = 6
+
+print("Mini-Hangman. Guess the secret word!")
+
+while lives > 0 and "_" in revealed:
+    guess = input("Enter a letter or guess the full word: ").lower()
+
+    if len(guess) == len(secret):
+        if guess == secret:
+            print(" You got it! The word was:", secret)
+            break
+        else:
+            print("Wrong word guess!")
+            lives -= 1
+
+    elif len(guess) == 1 and guess.isalpha():
+        if guess in guessed:
+            print("You already guessed that letter!")
+            continue
+
+        guessed.add(guess)
+        if guess in secret:
+
+            for i in range(len(secret)):
+                if secret[i] == guess:
+                    revealed[i] = guess
+        else:
+            print("Wrong letter!")
+            lives -= 1
+
+    else:
+        print("Invalid input. Enter one letter or a full word.")
+        continue
+
+    print("Word:", " ".join(revealed))
+    print("Guessed letters:", ", ".join(sorted(guessed)))
+    print("Lives left:", lives)
+    print("_" *30 )
+if "_" not in revealed:
+    print(" You got it! The word was:", secret)
+elif lives == 0:
+    print(" Out of lives. The word was:", secret)
+seminar_3.py
+Page 1 of 2
+Seminar
+Irena Fata
+•
+Mar 18
+Seminar 3.pdf
+PDF
+
+Class comments
