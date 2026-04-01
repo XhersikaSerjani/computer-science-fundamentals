@@ -1,0 +1,82 @@
+#normal method
+print ("===You have successfully escaped in your pod, but a massive asteroid is blocking your path to the rescue station! You need to reprogram the pods defensive laser to destroy it.===")
+
+print ("\n----Mission 1: The Glitchy Sensor--- ")
+
+charge = 0.0
+for i in range (10):
+    charge += 0.1
+if charge == 1.0:
+    print ("Laser Initialized")
+else :
+    print ("ERROR: Charge is ",charge , "System failure!")
+
+# the system fails because the floating-point precision error. computer work with binary numbers the 0.1 should be in a binary form but we can not represent it in such format. so instead of storing exactly 0.1 , the computer stores a very close approximation. so when we add this approximation 10 , the small errors acucumulate and give us a outcome of 0.999... there for even if mathematically is possible we can not write it in a program from.
+
+print("=== Mission 2: Locking onto the Frequency===")
+print ("To destroy the asteroid, your laser_power cubed must match the asteroids shield_frequency of 150.")
+shield_frequency = 150
+epsilon = 0.05
+increment = 0.01
+laser_power = 0.0
+num_guesses = 0
+
+while abs (laser_power**3 - shield_frequency)>=epsilon and laser_power**3 <=shield_frequency:
+    laser_power +=increment
+    laser_power +=1
+print ("laser_power", laser_power, "num_guesses", num_guesses)
+
+print("=== Mission 3: Preventing Reactor Overload===")
+if abs (laser_power**3 -shield_frequency )>= epsilon:
+    print ("OVERLOAD: Laser missed the frequency window!")
+else :
+    print ("ASTEROID DESTROYED! Final power level: " ,laser_power)
+
+
+#bisection method 
+print ("===You have successfully escaped in your pod, but a massive asteroid is blocking your path to the rescue station! You need to reprogram the pods defensive laser to destroy it.===")
+
+print ("\n----Mission 1: The Glitchy Sensor--- ")
+
+charge = 0.0
+for i in range (10):
+    charge += 0.1
+if charge == 1.0:
+    print ("Laser Initialized")
+else :
+    print ("ERROR: Charge is ",charge , "System failure!")
+
+# the system fails because the floating-point precision error. computer work with binary numbers the 0.1 should be in a binary form but we can not represent it in such format. so instead of storing exactly 0.1 , the computer stores a very close approximation. so when we add this approximation 10 , the small errors acucumulate and give us a outcome of 0.999... there for even if mathematically is possible we can not write it in a program from.
+
+print("=== Mission 2 & 3: Bisection Method ===")
+
+shield_frequency = 150
+epsilon = 0.05
+
+low = 0.0
+high = shield_frequency
+guess = (low + high) / 2.0
+
+num_guesses = 0
+max_guesses = 10000
+
+# Bisection loop
+while abs(guess**3 - shield_frequency) >= epsilon and num_guesses < max_guesses:
+    if guess**3 < shield_frequency:
+        low = guess
+    else:
+        high = guess
+    
+    guess = (low + high) / 2.0
+    num_guesses += 1
+
+# Final result (Mission 2 + Mission 3 behavior)
+if abs(guess**3 - shield_frequency) < epsilon:
+    print("Laser locked!")
+    print("ASTEROID DESTROYED!")
+    print("Laser power:", guess)
+    print("Laser power^3:", guess**3)
+    print("Guesses:", num_guesses)
+else:
+    print("OVERLOAD: Could not find solution!")
+
