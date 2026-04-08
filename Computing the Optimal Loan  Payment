@@ -1,0 +1,25 @@
+initial_loan = 50000
+annual_interest_rate = 0.18
+monthly_interest_rate = annual_interest_rate / 12
+months = 24
+
+monthly_payment = 0
+number_of_guesses = 0
+
+while True:
+    balance = initial_loan
+    number_of_guesses += 1
+
+    for month in range(24):
+        monthly_unpaid_balance = balance - monthly_payment
+        balance = monthly_unpaid_balance + (monthly_interest_rate * monthly_unpaid_balance)
+
+    if balance <= 0:
+        break
+    else:
+        monthly_payment += 10
+
+
+print("Final monthly payment:", monthly_payment, "EUR")
+print("Final balance after 24 months:", round(balance, 2), "EUR")
+print("Total number of guesses:", number_of_guesses)
