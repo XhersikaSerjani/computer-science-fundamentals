@@ -43,13 +43,4 @@ if "_" not in revealed:
     print(" You got it! The word was:", secret)
 elif lives == 0:
     print(" Out of lives. The word was:", secret)
-seminar_3.py
-Page 1 of 2
-Seminar
-Irena Fata
-•
-Mar 18
-Seminar 3.pdf
-PDF
 
-Class comments
