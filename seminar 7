@@ -1,0 +1,186 @@
+#WITH USER INPUT
+#Sensor Data Validation 
+def parse_sensor_data(user_input): # the user_input gets the data by the user and put it in our function
+    device_id = "" #it create a empty string that the letters will be stored 
+    error_sum = 0 # it will store the sum of all numbers found
+    for i in range(len(user_input)): #loops through the string using index positions 
+        char = user_input[i] #checks the char using positions
+        
+        if char.isalpha(): # checks if the char is a letter a-z
+            device_id = device_id + char.upper() # it converts the letters in uppercase  and add them to device_id
+            
+        elif char.isdigit(): #checks it the char is a number 0-9
+            num = int(char) # converts the char that is a string into an integer
+            error_sum = error_sum + num #adds the numbers to total sum
+            print ("[Audit] Number detected:", num , "| Current Sum:",error_sum)#prints message every time a number is found 
+            
+    return device_id , error_sum #returns 2 values the final string of letters from the device_id and the total sum of nr from error_sum
+    
+user_input = input ("Enter sensor data:") #data is input by the user 
+device_id, error_sum = parse_sensor_data(user_input)
+print ("Device ID:",device_id)
+print ("Error Sum:",error_sum)
+
+#The Voltage Equation
+#2.1 Guess and Check
+def f(v): #Defines the function 
+    return v**3 - 5*v - 9  
+
+def find_v_guess(target_error): #Function that finds root,target_error how close to 0 we want
+    v = 2.0 # Start from 2 (given interval)
+    step = 0.001 #Increase value slowly by 0.001
+    guesses = 0 #Counts how many tries
+
+    while v <= 3: #Loop until we reach 3
+        guesses += 1 #Add 1 guess each loop
+        if abs(f(v)) <= target_error: #Check if value is close to 0 , abs = absolute value 
+            print("Guesses:", guesses) #Print number of tries
+            return v #Return root
+        v += step #Move to next value
+target_error = float(input("Enter target error: ")) #User inputs number, float() converts it to decimal
+
+#2.2 Bisection Method
+def f(v):
+    return v**3 - 5*v - 9
+
+def find_v_bisection(low, high, tolerance): # low = start (2), high = end (3), tolerance = accuracy
+    steps = 0 #Count iterations
+
+    while (high - low) / 2 > tolerance: #Continue until interval is small enough
+        mid = (low + high) / 2 #Find middle point
+        steps += 1 #Count step
+
+        if f(mid) == 0: #Exact root found
+            print("Steps:", steps) #Print steps
+            return mid #Return value
+
+        elif f(low) * f(mid) < 0: #Check sign change, Root is between low and mid
+            high = mid #Move right boundary
+        else:
+            low = mid #Otherwise root is on other side
+
+    print("Steps:", steps)
+    return (low + high) / 2 #Return final approximation
+
+#User inputs values
+low = float(input("Enter low (2): "))
+high = float(input("Enter high (3): "))
+tolerance = float(input("Enter tolerance: "))
+
+
+root = find_v_bisection(low, high, tolerance) #Call function
+print("Root (Bisection):", root) #Print result
+
+#2.3 "Damped" Newton-Raphson (Business Logic)
+def f(v):
+    return v**3 - 5*v - 9
+
+def f_derivative(v):
+    return 3*v**2 - 5 #Derivative of function
+
+def find_v_newton(guess, tolerance): #guess = starting value, tolerance = accuracy
+    v = guess #Start from initial guess
+    iterations = 0 #Count steps
+
+    while True: #Loop until we stop manually
+        if abs(f(v)) <= tolerance: #Stop when close to 0
+            print("Iterations:", iterations) #Print steps
+            return v #Return root
+
+        v = v - 0.85 * (f(v) / f_derivative(v)) #Derivative of function where f(v) is function value, f_derivative(v) is slope and 0.85 is damping (slows movement)
+        iterations += 1 #Count iteration
+
+# User inputs values
+guess = float(input("Enter initial guess: "))
+tolerance = float(input("Enter tolerance: "))
+
+# Call function
+root = find_v_newton(guess, tolerance)
+print("Root (Newton):", root) #Print result
+
+#WITHOUT USERINPUT 
+
+def parse_sensor_data(data_string):
+    device_id = ""
+    error_sum = 0
+
+    for char in data_string:
+        if char.isalpha():
+            device_id = device_id + char.upper()
+        elif char.isdigit():
+            num = int(char)
+            error_sum = error_sum + num
+            print("[Audit] Number detected:", num, "| Current Sum:", error_sum)
+
+    return device_id, error_sum
+
+#The Voltage Equation
+#2.1 Guess and Check
+def f(v):
+    return v**3 - 5*v - 9
+
+
+def find_v_guess(target_error):
+    v = 2.0
+    step = 0.001
+    guesses = 0
+
+    while v <= 3:
+        guesses = guesses + 1
+        if abs(f(v)) <= target_error:
+            print("Guesses:", guesses)
+            return v
+        v = v + step
+
+##2.2 Bisection Method
+def find_v_bisection(low, high, tolerance):
+    steps = 0
+
+    while (high - low) / 2 > tolerance:
+        mid = (low + high) / 2
+        steps = steps + 1
+
+        if f(mid) == 0:
+            print("Bisection steps:", steps)
+            return mid
+        elif f(low) * f(mid) < 0:
+            high = mid
+        else:
+            low = mid
+
+    print("Bisection steps:", steps)
+    return (low + high) / 2
+
+#2.3 "Damped" Newton-Raphson (Business Logic)
+def f_derivative(v):
+    return 3 * v**2 - 5
+
+
+def find_v_newton(guess, tolerance):
+    v = guess
+    iterations = 0
+
+    while True:
+        if abs(f(v)) <= tolerance:
+            print("Newton iterations:", iterations)
+            return v
+
+        v = v - 0.85 * (f(v) / f_derivative(v))
+        iterations = iterations + 1
+
+
+# Execution block
+device_id, error_sum = parse_sensor_data("a3b4c1z9")
+print("Device ID:", device_id)
+print("Error Sum:", error_sum)
+
+root_guess = find_v_guess(0.0001)
+print("Root (Guess and Check):", root_guess)
+
+root_bisection = find_v_bisection(2, 3, 0.0001)
+print("Root (Bisection):", root_bisection)
+
+root_newton = find_v_newton(2.5, 0.0001)
+print("Root (Damped Newton-Raphson):", root_newton)
+root = find_v_guess(target_error) #Calls function
+print("Root (Guess):", root) #Prints result
