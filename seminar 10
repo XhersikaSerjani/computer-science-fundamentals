@@ -1,0 +1,87 @@
+# Task 1: Building and Extending the List
+
+tech_stack = ["Python", "Java", "C++"] #creat a list 
+
+print("Original List:", tech_stack)
+print("Original ID:", id(tech_stack)) #Prints the memory ID of the list. id() shows where the list object is stored in memory.
+
+tech_stack.append("JavaScript") ## append() adds one item at the end
+
+tech_stack.extend(["Ruby", "Go"]) # extend() adds multiple items
+
+print("\nAfter append and extend:")
+print("List:", tech_stack)
+print("ID:", id(tech_stack))
+
+#The ID does not change because append() and extend() modify the original list.
+
+
+# ---------------------------------------------------
+
+# Task 2: Sorting and Side Effects
+
+tech_stack.sort() #Sorts the original list alphabetically.
+
+print("\nAfter sort():")
+print("Sorted List:", tech_stack)
+print("ID:", id(tech_stack))
+#The ID is still the same because .sort() changes the original list.
+
+sorted_stack = sorted(tech_stack) #Creates a new sorted list and saves it in sorted_stack.
+
+print("\nUsing sorted():")
+print("tech_stack ID:", id(tech_stack))
+print("sorted_stack ID:", id(sorted_stack))
+# Prints both IDs. They are different, because sorted() creates a new list object.
+
+
+# ---------------------------------------------------
+
+# Task 3: Concatenation vs. Mutation
+
+new_tools = ["Docker", "Git"] #Creates another list.
+
+total_list = tech_stack + new_tools #Combines the two lists using +. + creates a new list, it does not change tech_stack.
+
+print("\nCombined List:")
+print(total_list)
+print("tech_stack ID:", id(tech_stack))
+print("total_list ID:", id(total_list))
+#Prints the combined list and both IDs. The IDs are different.
+
+total_list[0] = "Linux" #Changes the first element of total_list.
+
+print("\nAfter changing total_list:")
+print("total_list:", total_list)
+print("tech_stack:", tech_stack)
+
+# tech_stack does NOT change because total_list is a separate object
+
+
+# ---------------------------------------------------
+
+# Task 4: Cloning and Aliasing
+
+
+stack_alias = tech_stack #Creates an alias. This means stack_alias and tech_stack point to the same list.
+
+stack_clone = tech_stack[:] #Creates a clone/copy of the list. This means stack_clone is a new list with a different ID.
+
+tech_stack.append("SQL") #Adds "SQL" to the original list.Because stack_alias points to the same list, it also shows "SQL". But stack_clone does not change.
+
+print("\nAfter appending SQL:")
+
+print("tech_stack:", tech_stack)
+print("ID:", id(tech_stack))
+
+print("\nstack_alias:", stack_alias)
+print("ID:", id(stack_alias))
+
+print("\nstack_clone:", stack_clone)
+print("ID:", id(stack_clone))
+
+# tech_stack and stack_alias contain SQL
+# stack_clone does not contain SQL
+
+# stack_alias has the same ID as tech_stack
+# stack_clone has a different ID
