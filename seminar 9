@@ -1,0 +1,28 @@
+# Task 1: Filtering with Lambda
+nums = [12, 5, 8, 19, 3, 20, 7] #Creates a list called nums.The list contains integer numbers.
+
+greater_than_10 = list(filter(lambda x: x > 10, nums)) 
+#filter() checks every element in the list. It keeps only the elements that satisfy a condition. 
+#lambda keyword used to create a short function. 
+#x represents each number from the list one by one. x > 10 = condition if True - keep , if not remove it.
+
+print(greater_than_10) # output [12, 19, 20]
+
+# Task 2: Mapping Power
+squared_nums = list(map(lambda x: x ** 2, nums))
+#map() changes every element in the list.
+# x ** 2 = each value calculate it in the power of 2
+
+print(squared_nums) #output [144, 25, 64, 361, 9, 400, 49]
+
+
+# Task 3: Calculating Totals
+def analyze_cart(product_list): #def = create a function.analyze_cart = name of the function.product_list=parameter/input of the function.
+    total_products = len(product_list) #len() = Counts how many items are inside the list.
+    total_price = sum(price for product_name, price in product_list) #This line adds all prices together.
+    return (total_products, total_price) #sends the final answer back.
+
+
+cart = [("Apple", 120), ("Bread", 60), ("Cheese", 500)] #Creates the shopping cart list.
+
+print(analyze_cart(cart)) #Calls the function using cart. Prints the returned tuple.
